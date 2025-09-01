@@ -1,5 +1,7 @@
 package com.jhj.oracletest.dto;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,4 +18,6 @@ public class MemberDto {
 	private String memberpw;
 	private String membername;
 	private String memberdate;
+	
+	//private List<BoardDto> boardDtos;
 }

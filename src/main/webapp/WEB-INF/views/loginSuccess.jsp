@@ -10,6 +10,8 @@
 	<h2>로그인 성공</h2>
 	<hr>
 	<h3>${sessionScope.sessionid} 로그인중</h3>
-	<a href="logout">로그아웃</a>
+	<a href="logout">로그아웃</a><br>
+	<a href="bwitre">글쓰기</a><br>
+	<a href="blist">글쓰기</a><br>
 </body>
 </html>
