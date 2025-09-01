@@ -21,10 +21,12 @@
 			<th>작성일</th>
 			<th>삭제</th>
 		</tr>
-		<c:forEach items="${boardDtos}" var="boardDto">
+		<c:forEach items="${boardDtos}" var="boardDto" varStatus="status">
 		<tr>
-			<td>${boardDto.bnum}</td>
-			<td>${boardDto.btitle}</td>
+			<td>${boardCount-status.index}</td>
+			<td>
+			<a href="boardView?bnum=${boardDto.bnum}">${boardDto.btitle}</a>
+			</td>
 			<td>${boardDto.bwriter}</td>
 			<td>${boardDto.memberDto.membername}</td>
 			<td>${boardDto.bhit}</td>

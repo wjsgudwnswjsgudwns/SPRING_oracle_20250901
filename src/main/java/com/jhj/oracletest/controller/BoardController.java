@@ -54,7 +54,32 @@ public class BoardController {
 		
 		model.addAttribute("boardDtos", boardDtos);
 		
+		model.addAttribute("boardCount", boardDao.allBoardCountDao());
+		
 		return "boardList";
+	}
+	
+	@RequestMapping(value = "/boarddelete")
+	public String boarddelete(HttpServletRequest request,Model model) {
+		int bnum = Integer.parseInt(request.getParameter("bnum"));
+		
+		BoardDao boardDao = sqlSession.getMapper(BoardDao.class);
+		boardDao.boardDeleteDao(bnum);
+		
+		return "redirect:blist";
+	}
+	
+	@RequestMapping(value = "/boardView")
+	public String boardView(HttpServletRequest request,Model model) {
+		int bnum = Integer.parseInt(request.getParameter("bnum"));
+		
+		BoardDao boardDao = sqlSession.getMapper(BoardDao.class);
+		BoardDto boardDto = boardDao.boardViewDao(bnum);
+		boardDao.bhitUpdateDao(bnum);
+		
+		model.addAttribute("boardDto", boardDto);
+		
+		return "boardView";
 	}
 	
 }
