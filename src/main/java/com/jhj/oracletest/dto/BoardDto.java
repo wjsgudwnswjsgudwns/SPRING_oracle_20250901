@@ -1,5 +1,7 @@
 package com.jhj.oracletest.dto;
 
+import java.sql.Timestamp;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,7 +18,7 @@ public class BoardDto {
 	private String bcontent; // 글내용
 	private String bwriter; // 작성자 (memderid)
 	private int bhit; // 조회수 
-	private String bdate; // 작성일
+	private Timestamp bdate; // 작성일
 	
 	private MemberDto memberDto; 
 }

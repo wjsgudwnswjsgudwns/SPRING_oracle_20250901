@@ -30,7 +30,9 @@
 			<td>${boardDto.bwriter}</td>
 			<td>${boardDto.memberDto.membername}</td>
 			<td>${boardDto.bhit}</td>
-			<td>${boardDto.bdate}</td>
+			<td>
+			<fmt:formatDate value="${boardDto.bdate}" pattern="yyyy-MM-dd"/> 
+			</td>
 			<c:if test="${sessionScope.sessionid == boardDto.bwriter }">
 			<td>
 				<input type="button" value="삭제" onclick="javascript:window.location.href='boarddelete?bnum=${boardDto.bnum}'">
