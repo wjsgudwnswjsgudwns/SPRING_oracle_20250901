@@ -10,4 +10,32 @@
     	INSERT INTO boardtbl(bnum,btitle,bwriter,bcontent,bhit) VALUES (BOARD_SEQ.nextval,#{param1},#{param2},#{param3},0)
     </insert>
     
+    	<!-- 특정유저 정보 -->
+    	<!-- board:member 1:1 관계 매핑 -->
+    	<resultMap type="com.jhj.oracletest.dto.BoardDto" id="boardWithMember">
+    		<id property="bnum" column="bnum"/> <!-- board 테이블 기본키 세팅 -->
+    		<result property="btitle" column="btitle"/> <!-- board 테이블 나머지 필드 세팅 -->
+    		<result property="bcontent" column="bcontent"/> <!-- board 테이블 나머지 필드 세팅 -->
+    		<result property="bwriter" column="bwriter"/> <!-- board 테이블 나머지 필드 세팅 -->
+    		<result property="bhit" column="bhit"/> <!-- board 테이블 나머지 필드 세팅 -->
+    		<result property="bdate" column="bdate"/> <!-- board 테이블 나머지 필드 세팅 -->
+    		
+    		<association property="memberDto" javaType="com.jhj.oracletest.dto.MemberDto">
+    			<id property="memberid" column="memberid"/>
+    			<result property="membernum" column="membernum"/>
+    			<result property="memberpw" column="memberpw"/>
+    			<result property="membername" column="membername"/>
+    			<result property="memberdate" column="memberdate"/>
+    		</association>
+    	</resultMap>
+    	
+    	<select id="boardListDao" resultMap="boardWithMember">
+    		SELECT b.bnum,b.btitle,b.bcontent,b.bwriter,m.membername,b.bhit,b.bdate  
+    		FROM boardtbl b
+    		INNER JOIN membertbl m 
+    		ON b.bwriter = m.memberid  
+    		ORDER BY b.bnum DESC
+    	</select>
+    
+    
     </mapper>

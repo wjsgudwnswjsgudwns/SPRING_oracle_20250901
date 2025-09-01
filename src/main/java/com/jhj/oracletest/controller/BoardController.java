@@ -1,5 +1,7 @@
 package com.jhj.oracletest.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -10,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.jhj.oracletest.dao.BoardDao;
+import com.jhj.oracletest.dto.BoardDto;
 
 @Controller
 public class BoardController {
@@ -44,10 +47,14 @@ public class BoardController {
 		
 	}
 	
-	@RequestMapping(value = "/board")
+	@RequestMapping(value = "/blist")
 	public String board(HttpServletRequest request,Model model) {
+		BoardDao boardDao = sqlSession.getMapper(BoardDao.class);
+		List<BoardDto> boardDtos = boardDao.boardListDao();
 		
-		return "board";
+		model.addAttribute("boardDtos", boardDtos);
+		
+		return "boardList";
 	}
 	
 }
