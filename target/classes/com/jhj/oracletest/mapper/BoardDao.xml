@@ -19,6 +19,7 @@
     		<result property="bwriter" column="bwriter"/> <!-- board 테이블 나머지 필드 세팅 -->
     		<result property="bhit" column="bhit"/> <!-- board 테이블 나머지 필드 세팅 -->
     		<result property="bdate" column="bdate"/> <!-- board 테이블 나머지 필드 세팅 -->
+    		<result property="rnum" column="rnum"/> <!-- board 테이블 나머지 필드 세팅 -->
     		
     		<association property="memberDto" javaType="com.jhj.oracletest.dto.MemberDto">
     			<id property="memberid" column="memberid"/>
@@ -82,5 +83,19 @@
     	<insert id="contentModifyDao">
     		UPDATE boardtbl SET btitle=#{param1},bwriter=#{param2},bcontent=#{param3} WHERE bnum=#{param4}
     	</insert>
+    	
+    	<select id="pageBoardListDao" resultMap="boardWithMember">
+    	<![CDATA[
+      select *
+             from (
+                  select ROWNUM as rnum, r.*
+                      from
+                          (SELECT b.bnum, b.btitle, b.bcontent, b.bwriter, m.membername, b.bhit, b.bdate
+                              FROM boardtbl b
+                                  INNER JOIN membertbl m ON b.bwriter = m.memberid   
+                                      ORDER BY b.bnum DESC) r where rownum <= #{param2})
+                                          where rnum >= #{param1}
+      ]]>      
+    	</select>
     	
     </mapper>

@@ -119,9 +119,19 @@ public class BoardController {
 	
 	@RequestMapping(value = "/pagelist")
 	public String pagelist(HttpServletRequest request,Model model) {
+		int pageSize = 10; // 게시판 목록에 표시될 글 수
+		int pageNum = 1; // 유저가 클릭한 페이지 번호 (초기값은 1페이지)
+		int blocksize = 5; // 페이지 블럭에 표시될 페이지의 수
+		
+		if (request.getParameter("pageNum") != null) {
+			pageNum = Integer.parseInt(request.getParameter("pageNum")); // 유저가 선택한 페이지 번호
+		} 
+		int startRow = (pageNum*pageSize)-9; // 페이징 되었을때 시작 행의 번호
+		int endRow = (pageNum * pageSize);
+		
 		
 		BoardDao boardDao = sqlSession.getMapper(BoardDao.class);
-		List<BoardDto> boardDtos = boardDao.boardListDao();
+		List<BoardDto> boardDtos = boardDao.pageBoardListDao(startRow, endRow);
 		
 		model.addAttribute("boardDtos", boardDtos);
 		
