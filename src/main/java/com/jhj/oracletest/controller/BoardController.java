@@ -119,6 +119,7 @@ public class BoardController {
 	
 	@RequestMapping(value = "/pagelist")
 	public String pagelist(HttpServletRequest request,Model model) {
+
 		int pageSize = 10; // 게시판 목록에 표시될 글 수
 		int pageNum = 1; // 유저가 클릭한 페이지 번호 (초기값은 1페이지)
 		int blocksize = 5; // 페이지 블럭에 표시될 페이지의 수
@@ -132,10 +133,26 @@ public class BoardController {
 		
 		BoardDao boardDao = sqlSession.getMapper(BoardDao.class);
 		List<BoardDto> boardDtos = boardDao.pageBoardListDao(startRow, endRow);
+		int totalCount = boardDao.allBoardCountDao();
+		
+		int startPage;
+		int endPage;
+		int totalPage; // 총 페이지 수
+		
+		startPage = (((pageNum-1)/blocksize)*blocksize)+1;
+		endPage = startPage + blocksize -1; 
+		totalPage = (int) (Math.ceil((double) totalCount / pageSize));
+		
+		if(totalPage < endPage) {
+			endPage = totalPage;
+		}
 		
 		model.addAttribute("boardDtos", boardDtos);
+		model.addAttribute("pageNum", pageNum);
+		model.addAttribute("startPage", startPage);
+		model.addAttribute("endPage", endPage);
+		model.addAttribute("boardCount", totalCount);
 		
-		model.addAttribute("boardCount", boardDao.allBoardCountDao());
 		
 		return "pagelist";
 	}
