@@ -64,9 +64,21 @@ public class BoardController {
 		int bnum = Integer.parseInt(request.getParameter("bnum"));
 		
 		BoardDao boardDao = sqlSession.getMapper(BoardDao.class);
-		boardDao.boardDeleteDao(bnum);
+		int result = boardDao.boardDeleteDao(bnum);
 		
-		return "redirect:blist";
+		if(result == 1) {
+			model.addAttribute("msg", "삭제되었습니다");
+			model.addAttribute("url", "blist");
+			
+			return "alert/alert";
+		} else {
+			model.addAttribute("msg", "삭제가 실패했습니다");
+			model.addAttribute("url", "blist");
+			
+			return "alert/alert";
+		}
+		
+		
 	}
 	
 	@RequestMapping(value = "/boardView")
@@ -74,12 +86,48 @@ public class BoardController {
 		int bnum = Integer.parseInt(request.getParameter("bnum"));
 		
 		BoardDao boardDao = sqlSession.getMapper(BoardDao.class);
-		BoardDto boardDto = boardDao.boardViewDao(bnum);
 		boardDao.bhitUpdateDao(bnum);
+		BoardDto boardDto = boardDao.boardViewDao(bnum);
 		
 		model.addAttribute("boardDto", boardDto);
 		
 		return "boardView";
+	}
+	
+	@RequestMapping(value = "/contentModify")
+	public String contentModify(HttpServletRequest request,Model model) {
+		int bnum = Integer.parseInt(request.getParameter("bnum"));
+		BoardDao boardDao = sqlSession.getMapper(BoardDao.class);
+		BoardDto boardDto = boardDao.boardViewDao(bnum);
+		model.addAttribute("boardDto", boardDto);
+		
+		return "contentModify";
+	}
+	
+	@RequestMapping(value = "/contentModifyOk")
+	public String contentModifyOk(HttpServletRequest request,Model model) {
+		int bnum = Integer.parseInt(request.getParameter("bnum"));
+		String btitle = request.getParameter("btitle");
+		String bwriter = request.getParameter("bwriter");
+		String bcontent = request.getParameter("bcontent"); 
+		
+		BoardDao boardDao = sqlSession.getMapper(BoardDao.class);
+		boardDao.contentModifyDao(btitle, bwriter, bcontent, bnum);
+	
+		return "contentModify";
+	}
+	
+	@RequestMapping(value = "/pagelist")
+	public String pagelist(HttpServletRequest request,Model model) {
+		
+		BoardDao boardDao = sqlSession.getMapper(BoardDao.class);
+		List<BoardDto> boardDtos = boardDao.boardListDao();
+		
+		model.addAttribute("boardDtos", boardDtos);
+		
+		model.addAttribute("boardCount", boardDao.allBoardCountDao());
+		
+		return "pagelist";
 	}
 	
 }

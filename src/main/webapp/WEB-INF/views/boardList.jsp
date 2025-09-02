@@ -7,6 +7,8 @@
 <head>
 <meta charset="UTF-8">
 <title>자유게시판</title>
+
+<link rel="stylesheet" type="text/css" href="resources/css/boardlist.css">
 </head>
 <body>
 	<h2>자유 게시판</h2>
@@ -42,5 +44,18 @@
 		</c:forEach>
 	</table>
 	<input type="button" value="글쓰기" onclick="javascript:window.location.href='bwrite'" > 
+	
+	<div class="pagination">
+      <a href="#">&laquo;</a>
+      <a href="#">&lsaquo;</a>
+      <a href="#" class="active">1</a>
+      <a href="#">2</a>
+      <a href="#">3</a>
+      <a href="#">4</a>
+      <a href="#">5</a>
+      <a href="#">&rsaquo;</a>
+      <a href="#">&raquo;</a>
+    </div>
+  </div>
 </body>
 </html>

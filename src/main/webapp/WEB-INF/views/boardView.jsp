@@ -17,6 +17,7 @@
 	<br><br>
 	${boardDto.bcontent}
 	<br>
-	<input type="button" value="목록" onclick="javascript:window.location.href='blist'" > 
+	<input type="button" value="목록" onclick="javascript:window.location.href='blist'" >
+	<input type="button" value="수정" onclick="javascript:window.location.href='contentModify?bnum=${boardDto.bnum}'" >  
 </body>
 </html>

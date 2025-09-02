@@ -52,7 +52,7 @@
     
 		<!-- 글 보기 -->
 		<!-- board:member 1:1 관계 매핑 -->
-    	<resultMap type="com.jhj.oracletest.dto.BoardDto" id="boardListWithMember">
+    	<resultMap type="com.jhj.oracletest.dto.BoardDto" id="contentWithMember">
     		<id property="bnum" column="bnum"/> <!-- board 테이블 기본키 세팅 -->
     		<result property="btitle" column="btitle"/> <!-- board 테이블 나머지 필드 세팅 -->
     		<result property="bcontent" column="bcontent"/> <!-- board 테이블 나머지 필드 세팅 -->
@@ -65,7 +65,7 @@
     			<result property="membername" column="membername"/>
     		</association>
     	</resultMap>
-    	<select id="boardViewDao" resultMap="boardListWithMember">
+    	<select id="boardViewDao" resultMap="contentWithMember">
     		SELECT b.bnum,b.btitle,b.bcontent,b.bwriter,m.membername,b.bhit,b.bdate  
     		FROM boardtbl b 
     		INNER JOIN membertbl m 
@@ -78,5 +78,9 @@
     	<update id="bhitUpdateDao">
     		UPDATE boardtbl SET bhit = bhit+1 WHERE bnum = #{param1} 
     	</update>
+    	
+    	<insert id="contentModifyDao">
+    		UPDATE boardtbl SET btitle=#{param1},bwriter=#{param2},bcontent=#{param3} WHERE bnum=#{param4}
+    	</insert>
     	
     </mapper>
