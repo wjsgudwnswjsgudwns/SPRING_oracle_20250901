@@ -158,4 +158,8 @@ public class BoardController {
 		return "pagelist";
 	}
 	
+	@RequestMapping(value = "/test")
+	public String test(HttpServletRequest request,Model model) {
+		return "test";
+	}
 }

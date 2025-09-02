@@ -127,7 +127,7 @@
     <div class="pagination">
     <c:if test="${pageNum>1}">
       <a href="pagelist?pageNum=1">&laquo;</a>
-      <a href="pagelist?pageNum=${pageNum-1}">&lsaquo;</a>
+      <a href="pagelist?pageNum=${startPage-1}">&lsaquo;</a>
     </c:if>
 
       <c:forEach var="i" begin="${startPage}" end="${endPage}">
@@ -141,7 +141,7 @@
 		</c:choose>
       </c:forEach>
       <c:if test="${pageNum < totalPage }">
-      	<a href="pagelist?pageNum=${pageNum+1}">&rsaquo;</a>
+      	<a href="pagelist?pageNum=${endPage+1}">&rsaquo;</a>
       	<a href="pagelist?pageNum=${totalPage}">&raquo;</a>
       </c:if>
     </div>
