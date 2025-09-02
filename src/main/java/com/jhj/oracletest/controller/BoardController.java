@@ -152,6 +152,7 @@ public class BoardController {
 		model.addAttribute("startPage", startPage);
 		model.addAttribute("endPage", endPage);
 		model.addAttribute("boardCount", totalCount);
+		model.addAttribute("totalPage", totalPage);
 		
 		
 		return "pagelist";
