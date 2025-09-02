@@ -9,6 +9,6 @@
 <body>
 	<h2>이미지 불러오기</h2>
 	<hr>
-	<img src="resources/img/images.png">
+	<img src="${pageContext.request.contextPath}/resources/img/images.png">
 </body>
 </html>
